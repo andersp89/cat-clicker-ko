@@ -3,20 +3,28 @@ var ViewModel = function() {
 	this.name = ko.observable('Tabby');
 	this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
 	this.imgAttribution = ko.observable('https://www.flickr.com');
-	this.levels = ko.observable('Beginner');
+	this.levels = ko.observable();
 
 	this.incrementCounter = function() {
 		this.clickCount(this.clickCount() + 1);
+	}
 
 	this.findLevel = function() {
-		if (this.clickCount() > 5 && 10) {		
-			this.levels('Advanced');
-		}
-		if (this.clickCount() > 10) {		
-			this.levels('Expert');
+		var clicks = this.clickCount();
+		if (clicks < 6) {		
+			this.levels('Beginner');
+		} else if (clicks < 11) {		
+			this.levels('Intermediate');
+		} else if (clicks < 16) {
+			this.levels('Expert')
 		}
 	}
-	};
+
+	this.nickNames = [
+		{ name: 'Catty cat' },
+		{ name: 'Plabby poo' },
+		{ name: 'Anderschen' }
+	];
 }
 
 
