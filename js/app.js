@@ -3,7 +3,7 @@ var Cat = function() {
 	this.name = ko.observable('Tabby');
 	this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
 	this.imgAttribution = ko.observable('https://www.flickr.com');
-	this.levels = ko.observable();
+	this.levels = ko.observable('Beginner');
 	this.nickNames = ko.observableArray([
 		{ name: 'Catty cat' },
 		{ name: 'Plabby poo' },
@@ -12,22 +12,24 @@ var Cat = function() {
 }
 
 var ViewModel = function() {
-
+	var self = this;
 	this.currentCat = ko.observable( new Cat() );
 
 	this.incrementCounter = function() {
-		this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+	}
+
+	self.updateLevel = function(x) {
+		self.currentCat().levels(x);
 	}
 
 	this.findLevel = function() {
-		var clicks = this.currentCat().clickCount();
-		
-		if (clicks < 6) {		
-			this.currentCat().levels('Beginner');
-		} else if (clicks < 11) {		
-			this.currentCat().levels('Intermediate');
-		} else if (clicks < 16) {
-			this.currentCat().levels('Expert')
+		var clicks = this.currentCat().clickCount(); 
+
+		if (clicks > 5 && clicks < 11) {		
+			this.updateLevel('Intermediate');
+		} else if (clicks > 10 && clicks < 16) {
+			this.updateLevel('Expert');
 		}
 	}
 
